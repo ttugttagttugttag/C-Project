@@ -10,7 +10,18 @@ typedef struct stack{
 }Stack;
 
 int main() {
+    int check;
+    do {
+        printf("계획 추가 : 1, 계획 검색 : 2, 종료 : 3\n");
+        scanf("%d", &check);
 
+        if(check == 1) {
+
+        }
+        else if(check == 2){
+
+        }
+    } while(check != 3);
 }
 
 void initStack(Stack *s) {
