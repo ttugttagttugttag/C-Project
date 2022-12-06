@@ -12,7 +12,7 @@ typedef struct stack{
 void initStack(Stack *s);
 int isFull(Stack *s);
 int isEmpty(Stack *s);
-void push(Stack *s, element * data);
+void push(Stack *s);
 element* pop(Stack *s);
 
 int main() {
@@ -29,8 +29,7 @@ int main() {
 
         if(check == 1) {
             printf("추가 또는 제거할 계획을 입력하세요.\n");
-            scanf("%s", data);
-            push(&s, data);
+            push(&s);
         }
         else if(check == 2){
             printf("검색 할 계획을 입력하세요.\n");
@@ -54,14 +53,18 @@ int isEmpty(Stack *s) {
     return s->top == -1;
 }
 
-void push(Stack *s, element * data) {
+void push(Stack *s) {
+    char * data;
     if (isFull(s)) {
         printf("더 이상 계획을 추가 할 수 없습니다.");
         return;
     }
+    scanf("%s", data); // 저장할 계획 입력
+    s->data[++s->top];
     for (int i = 0; i < strlen(data); ++i) {
-        s->data[++s->top][i] = data[i];
+        s->data[s->top][i] = data[i];
     }
+    s->data[s->top][strlen(data)] = '\0';
 }
 
 element* pop(Stack *s) {
@@ -69,5 +72,6 @@ element* pop(Stack *s) {
         printf("계획을 추가 할 수 있습니다.");
         return 0;
     }
+
     return s->data[s->top--];
 }
