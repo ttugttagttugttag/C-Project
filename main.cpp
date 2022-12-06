@@ -9,17 +9,34 @@ typedef struct stack{
     element data[MAX_SIZE][100];
 }Stack;
 
+void initStack(Stack *s);
+int isFull(Stack *s);
+int isEmpty(Stack *s);
+void push(Stack *s, element * data);
+element* pop(Stack *s);
+
 int main() {
     int check;
+    Stack s;
+    char *data;
+    char *search;
+
+    initStack(&s);
+
     do {
         printf("계획 추가 : 1, 계획 검색 : 2, 종료 : 3\n");
         scanf("%d", &check);
 
         if(check == 1) {
-
+            scanf("%s", data);
+            push(&s, data);
         }
         else if(check == 2){
-
+            printf("검색 할 데이터를 입력하세요.\n");
+            scanf("%s", search);
+        }
+        else if(check != 3) {
+            printf("잘못된 메세지 입니다.\n");
         }
     } while(check != 3);
 }
@@ -46,7 +63,7 @@ void push(Stack *s, element * data) {
     }
 }
 
-element* pop(Stack *s){
+element* pop(Stack *s) {
     if (isEmpty(s)) {
         printf("계획을 추가 할 수 있습니다.");
         return 0;
