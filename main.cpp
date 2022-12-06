@@ -24,15 +24,16 @@ int main() {
     initStack(&s);
 
     do {
-        printf("계획 추가 : 1, 계획 검색 : 2, 종료 : 3\n");
+        printf("계획 추가/제거 : 1, 계획 검색 : 2, 종료 : 3\n");
         scanf("%d", &check);
 
         if(check == 1) {
+            printf("추가 또는 제거할 계획을 입력하세요.\n");
             scanf("%s", data);
             push(&s, data);
         }
         else if(check == 2){
-            printf("검색 할 데이터를 입력하세요.\n");
+            printf("검색 할 계획을 입력하세요.\n");
             scanf("%s", search);
         }
         else if(check != 3) {
