@@ -61,12 +61,7 @@ void push(Stack *s) {
         printf("더 이상 계획을 추가 할 수 없습니다.");
         return;
     }
-    scanf("%s", data); // 저장할 계획 입력
-    s->data[++s->top];
-    for (int i = 0; i < strlen(data); ++i) {
-        s->data[s->top][i] = data[i];
-    }
-    s->data[s->top][strlen(data)] = '\0';
+    scanf("%s", s->data[++s->top]); // 저장할 계획 입력
 }
 
 element* pop(Stack *s) {
@@ -78,9 +73,9 @@ element* pop(Stack *s) {
     return s->data[s->top--];
 }
 
+// 모든 계획 출력
 void printStack(Stack *s){
     printf("현재 계획\n");
-    for (int i = 0; i <= s->top; ++i, puts(""))
-        for (int n = 0; n < strlen(s->data[i]); ++n)
-            printf("%c", s->data[i][n]);
+    for (int i = 0; i <= s->top; ++i)
+        printf("%s\n", s->data[i]);
 }
