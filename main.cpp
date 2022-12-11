@@ -14,17 +14,18 @@ int isFull(Stack *s);
 int isEmpty(Stack *s);
 void push(Stack *s);
 element* pop(Stack *s);
+int search(char target[],stack* s);
 void printStack(Stack *s);
 
 int main() {
     int check;
     Stack s;
-    char *search;
+    char *search_data;
 
     initStack(&s);
 
     do {
-        printf("계획 추가/제거 : 1, 계획 검색 : 2, 종료 : 3\n");
+        printf("계획 추가 : 1, 계획 제거 : 2, 종료 : 3\n");
         scanf("%d", &check);
 
         if(check == 1) {
@@ -33,7 +34,7 @@ int main() {
         }
         else if(check == 2){
             printf("검색 할 계획을 입력하세요.\n");
-            scanf("%s", search);
+            scanf("%s", search_data);
         }
         else if(check != 3) {
             printf("잘못된 메세지 입니다.\n");
@@ -61,7 +62,21 @@ void push(Stack *s) {
         printf("더 이상 계획을 추가 할 수 없습니다.");
         return;
     }
-    scanf("%s", s->data[++s->top]); // 저장할 계획 입력
+    scanf("%s", data);
+    s->top++;
+    if(search(data, s) != 1){
+        strcpy(s->data[s->top] , data);
+    }
+
+    // 저장할 계획 입력
+}
+
+void push2(Stack *s,char data[]) {
+    if (isFull(s)) {
+        printf("더 이상 계획을 추가 할 수 없습니다.");
+        return;
+    }
+    strcpy(s->data[++s->top],data);
 }
 
 element* pop(Stack *s) {
@@ -71,6 +86,17 @@ element* pop(Stack *s) {
     }
 
     return s->data[s->top--];
+}
+
+int search(char target[],stack* s){
+    element* NS;
+    NS = pop(s);
+    if(strcmp(target,NS) == 0){
+        return 1;
+    }
+    search(target,s);
+    push2(s,target);
+
 }
 
 // 모든 계획 출력
