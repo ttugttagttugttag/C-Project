@@ -14,11 +14,11 @@ int isFull(Stack *s);
 int isEmpty(Stack *s);
 void push(Stack *s);
 element* pop(Stack *s);
+void printStack(Stack *s);
 
 int main() {
     int check;
     Stack s;
-    char *data;
     char *search;
 
     initStack(&s);
@@ -38,6 +38,8 @@ int main() {
         else if(check != 3) {
             printf("잘못된 메세지 입니다.\n");
         }
+        printStack(&s);
+
     } while(check != 3);
 }
 
@@ -74,4 +76,11 @@ element* pop(Stack *s) {
     }
 
     return s->data[s->top--];
+}
+
+void printStack(Stack *s){
+    printf("현재 계획\n");
+    for (int i = 0; i <= s->top; ++i, puts(""))
+        for (int n = 0; n < strlen(s->data[i]); ++n)
+            printf("%c", s->data[i][n]);
 }
