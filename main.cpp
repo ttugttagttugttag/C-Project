@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 #define MAX_SIZE 30
 typedef char element;
 
@@ -8,7 +9,6 @@ typedef struct stack{
     int top;
     element data[MAX_SIZE][100];
 }Stack;
-
 void initStack(Stack *s);
 int isFull(Stack *s);
 int isEmpty(Stack *s);
@@ -18,7 +18,7 @@ int search(char target[],stack* s);
 void printStack(Stack *s);
 
 int main() {
-    int check;
+    int check, n = 0;
     Stack s;
     char *search_data;
 
@@ -32,7 +32,7 @@ int main() {
         scanf("%d", &check);
 
         if(check == 1) {
-            printf("추가할 계획을 입력하세요 : ");
+            printf("추가할 계획을 입력하세요(최대 20글자) : ");
             push(&s);
         }
         else if(check == 2){
@@ -42,6 +42,7 @@ int main() {
         else if(check != 3) {
             printf("잘못된 메세지 입니다.\n");
         }
+        system("cls");
         printStack(&s);
 
     } while(check != 3);
@@ -80,7 +81,8 @@ element* pop(Stack *s) {
 void printStack(Stack *s){
     printf("현재 계획\n");
     for (int i = 0; i <= s->top; ++i) {
-        printf("");
+        printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
         printf("%s\n", s->data[i]);
+        printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
     }
 }
