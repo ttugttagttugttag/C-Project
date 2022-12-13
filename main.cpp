@@ -3,24 +3,28 @@
 #include <string.h>
 #include <windows.h>
 #define MAX_SIZE 30
+#define MAX_WORD 100
 typedef char element;
 
 typedef struct stack{
     int top;
-    element data[MAX_SIZE][100];
+    element data[MAX_SIZE][MAX_WORD];
 }Stack;
+
 void initStack(Stack *s);
 int isFull(Stack *s);
 int isEmpty(Stack *s);
-void push(Stack *s);
+void push(Stack *s, char *data);
 element* pop(Stack *s);
-int search(char target[],stack* s);
+int search(char target[], Stack* s);
 void printStack(Stack *s);
+char search_data[21];
+void checkStack(Stack *s);
 
 int main() {
     int check, n = 0;
+    char data[MAX_WORD];
     Stack s;
-    char *search_data;
 
     initStack(&s);
 
@@ -33,11 +37,12 @@ int main() {
 
         if(check == 1) {
             printf("추가할 계획을 입력하세요(최대 20글자) : ");
-            push(&s);
+            scanf("%s", data);
+            push(&s, data);
         }
         else if(check == 2){
             printf("완료한 계획을 입력하세요.\n");
-            scanf("%s", search_data);
+            checkStack(&s);
         }
         else if(check != 3) {
             printf("잘못된 메세지 입니다.\n");
@@ -60,12 +65,13 @@ int isEmpty(Stack *s) {
     return s->top == -1;
 }
 
-void push(Stack *s) {
+void push(Stack *s, char* data) {
     if (isFull(s)) {
         printf("더 이상 계획을 추가 할 수 없습니다.");
         return;
     }
-    scanf("%s", s->data[++s->top]);
+    s->top++;
+    for (int i = 0; (s->data[s->top][i] = data[i]); i++);
 }
 
 element* pop(Stack *s) {
@@ -85,4 +91,23 @@ void printStack(Stack *s){
         printf("%s\n", s->data[i]);
         printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
     }
+}
+
+void checkStack(Stack *s){
+    scanf("%s", search_data);
+    char* datalist[MAX_SIZE];
+    int j1 = 0;
+    for (int i = 0; i <= s->top; ++i) {
+        datalist[i] = pop(s);
+        int i1 = strcmp(datalist[i], search_data);
+        if (i1 == 0) {
+            j1 = i-1;
+            break;
+        }
+
+    }
+    for (int i = j1; i >= 0; i--) {
+        push(s, datalist[i]);
+    }
+
 }
